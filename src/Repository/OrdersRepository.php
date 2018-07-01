@@ -23,11 +23,12 @@ class OrdersRepository extends ServiceEntityRepository
     public function findLastUnexecuted(): ?Orders
     {
         $result = $this->createQueryBuilder('o')
-            ->orderBy('o.input_date', 'DESC')
+            ->orderBy('o.inputDate', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getResult();
 
+        /** @noinspection PhpUndefinedMethodInspection */
         if (!empty($result) && $result[0] instanceof Orders && !$result[0]->isExecuted()) {
             return $result[0];
         }
