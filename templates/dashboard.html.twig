@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if last_executed|length > 0 %}
+            {% for order in last_executed %}
+                {% if loop.first %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Input Date</th>
+                            <th>Sunrise time</th>
+                            <th>Sunset time</th>
+                            <th>Feed</th>
+                            <th>Morning feed time</th>
+                            <th>Evening feed time</th>
+                        </tr>
+                        </thead>
+                {% endif %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.inputDate|date('d.m.Y') }}</td>
+                    <td>{{ order.sunriseTime }}</td>
+                    <td>{{ order.sunsetTime }}</td>
+                    <td>{{ order.feed }}</td>
+                    <td>{{ order.morningFeedTime }}</td>
+                    <td>{{ order.eveningFeedTime }}</td>
+                </tr>
+                {% if loop.last %}
+                    </table>
+                {% endif %}
+            {% endfor %}
+    {% endif%}
+
+{% endblock %}

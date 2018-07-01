@@ -20,6 +20,11 @@ class OrdersRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * Returns last unexecuted order. It's called by pyquarium.
+     *
+     * @return Orders|null
+     */
     public function findLastUnexecuted(): ?Orders
     {
         $result = $this->createQueryBuilder('o')
@@ -34,6 +39,22 @@ class OrdersRepository extends ServiceEntityRepository
         }
 
         return null;
+    }
+
+    /**
+     * Returns last n executed orders
+     *
+     * @param int $limit
+     * @return Orders|null
+     */
+    public function findLastExecuted(int $limit = 1): array
+    {
+        return $this->createQueryBuilder('o')
+            ->where('o.executed = 1')
+            ->orderBy('o.inputDate', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
     }
 
 }

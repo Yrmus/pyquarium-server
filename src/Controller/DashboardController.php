@@ -14,16 +14,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @Route("/dashboard")
+ * Class DashboardController
+ * @package App\Controller
+ */
 class DashboardController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("")
      */
-    public function show()
+    public function show(): Response
     {
-//        phpinfo();
-        $ordersToExecute = $this->getDoctrine()->getRepository(Orders::class)->findLastUnexecuted();
-        var_dump($ordersToExecute);
-        return new Response('haha');
+        $lastExecuted = $this->getDoctrine()->getRepository(Orders::class)->findLastExecuted(10);
+        return $this->render('dashboard.html.twig', [
+            'last_executed' => $lastExecuted
+        ]);
     }
 }
