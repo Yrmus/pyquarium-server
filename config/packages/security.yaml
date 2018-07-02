@@ -1,13 +1,19 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+        in_memory:
+            memory:
+                users:
+                    aqua:
+                        password: $2y$12$NUKNf9A4xlMw2UgB5nn8o.RO6mFnZv5gjgFeqFzmz3.Vii5I1.Lti
+                        roles: 'ROLE_USER'
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
+            anonymous: false
+            http_basic: true
 
             # activate different ways to authenticate
 
@@ -21,4 +27,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^, roles: ROLE_USER }
+
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
