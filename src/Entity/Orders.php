@@ -34,7 +34,7 @@ class Orders
     /**
      * @ORM\Column(type="boolean")
      */
-    private $feed;
+    private $feed = false;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -49,7 +49,7 @@ class Orders
     /**
      * @ORM\Column(type="boolean")
      */
-    private $executed;
+    private $executed = false;
 
     public function __construct()
     {

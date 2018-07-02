@@ -2,20 +2,22 @@
 
 {% block body %}
     {% if last_executed|length > 0 %}
+        <fieldset>
+            <legend>History</legend>
             {% for order in last_executed %}
                 {% if loop.first %}
                     <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Input Date</th>
-                            <th>Sunrise time</th>
-                            <th>Sunset time</th>
-                            <th>Feed</th>
-                            <th>Morning feed time</th>
-                            <th>Evening feed time</th>
-                        </tr>
-                        </thead>
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Input Date</th>
+                        <th>Sunrise time</th>
+                        <th>Sunset time</th>
+                        <th>Feed</th>
+                        <th>Morning feed time</th>
+                        <th>Evening feed time</th>
+                    </tr>
+                    </thead>
                 {% endif %}
                 <tr>
                     <td>{{ order.id }}</td>
@@ -30,6 +32,10 @@
                     </table>
                 {% endif %}
             {% endfor %}
-    {% endif%}
-
+        </fieldset>
+    {% endif %}
+    <fieldset class="form-group">
+        <legend>Configuration</legend>
+        {{ form(form) }}
+    </fieldset>
 {% endblock %}
